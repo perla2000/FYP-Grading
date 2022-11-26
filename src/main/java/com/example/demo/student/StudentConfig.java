@@ -13,12 +13,13 @@ public class StudentConfig {
     CommandLineRunner commandLineRunner(StudentRepository repository){
         return args -> {
             Student mariam=new Student(
-
+                    190544L,
                     "Mariam",
                     "mariam.iskandar@gmail.com",
                     LocalDate.of(2000, Month.JANUARY,5)
             );
             Student anthony=new Student(
+                    190542L,
                     "Anthony",
                     "anthony.jeitany@gmail.com",
                     LocalDate.of(1999, Month.MAY,19)

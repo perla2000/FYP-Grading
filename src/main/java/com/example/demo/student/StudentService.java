@@ -5,8 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.time.LocalDate;
-import java.time.Month;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -22,6 +20,14 @@ public class StudentService {
 
     public List<Student> getStudents(){
             return studentRepository.findAll(); // implemented in the JPARepository
+    }
+    public Optional<Student> getStudent(Long studentId){
+        Optional<Student> student = studentRepository.findById(studentId);
+        if (!student.isPresent()) {
+            throw new IllegalStateException("Student with the Id \""+studentId+"\" was not found");
+
+        }
+        return student;
     }
 
     public void addNewStudent(Student student) {
@@ -39,7 +45,7 @@ public class StudentService {
         boolean exists=studentRepository.existsById(studentId);
         if(!exists) {
             throw new IllegalStateException(
-                    "student with id " + studentId + " does not exists");
+                    "student with id " + studentId + " does not exist");
         }
         studentRepository.deleteById(studentId) ;
 
