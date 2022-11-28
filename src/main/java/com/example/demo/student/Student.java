@@ -1,11 +1,14 @@
 package com.example.demo.student;
 
+//import com.example.demo.group.Group;
+
+import com.example.demo.group.Group;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.Period;
 
 @Entity
-@Table
 public class Student {
     @Id
 //    @SequenceGenerator(
@@ -18,11 +21,32 @@ public class Student {
 //            generator="student_sequence"
 //    )
     private Long id;
+    @ManyToOne
+    @JoinColumn(name = "student_group_id")
+    private Group group;
+
     private String name;
     private String email;
     private LocalDate dob;
     @Transient   //it doesn't need to be a column in our database so age will be calculated for us
     private Integer age;
+
+//    public Group getGroup() {
+//        return group;
+//    }
+//
+//    public void setGroup(Group group) {
+//        this.group = group;
+//    }
+//
+//    public Group getGroupId() {
+//        return group;
+//    }
+//
+//    public void setGroupId(Group group) {
+//        this.group = group;
+//    }
+
     public Student(){
 
     }
@@ -56,6 +80,12 @@ public class Student {
     }
     public void setAge(Integer age){
         this.age=age;
+    }
+    public Group getStudentGroup() {
+        return group;
+    }
+    public void setStudentGroup(Group studentGroup) {
+        this.group = studentGroup;
     }
     @Override
     public String toString(){

@@ -8,24 +8,15 @@
 //import java.time.Month;
 //import java.util.List;
 //@Configuration
-//public class StudentConfig {
+//public class GroupConfig {
 //    @Bean
-//    CommandLineRunner commandLineRunner(GroupRepository repository){
+//    CommandLineRunner commandLineRunnerGroup(GroupRepository repository){
 //        return args -> {
-//            Student mariam=new Student(
-//                    190544L,
-//                    "Mariam",
-//                    "mariam.iskandar@gmail.com",
-//                    LocalDate.of(2000, Month.JANUARY,5)
-//            );
-//            Student anthony=new Student(
-//                    190542L,
-//                    "Anthony",
-//                    "anthony.jeitany@gmail.com",
-//                    LocalDate.of(1999, Month.MAY,19)
+//            Group grp1=new Group("springboot");
+//            Group grp2=new Group("kafka"
 //            );
 //            repository.saveAll(
-//                    List.of(mariam,anthony)
+//                    List.of(grp1,grp2)
 //            );
 //        };
 //    }
