@@ -1,7 +1,6 @@
 package com.example.demo.group;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -10,8 +9,9 @@ import java.util.Optional;
 //Student type that we want to work upon
 @Repository
 public interface GroupRepository extends JpaRepository<Group, Long > {
-  //  @Query( "SELECT * FROM Student WHERE email = ?1")
-//    Optional<Group> findById(Long groupId);
+
+    Optional<Group> findGroupById(Long groupId);
+
 
 
 }

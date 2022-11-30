@@ -1,9 +1,12 @@
 package com.example.demo.group;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @RestController
@@ -32,10 +35,11 @@ public class GroupController {
         groupService.deleteGroup(groupId);
     }
 
-    @PutMapping(path="{groupId}")
-    public void deleteStudent(@PathVariable("groupId") Long groupId,
-                              @RequestParam(required = true) Long studentId){groupService.deleteStudentInGroup(groupId,studentId);
-    }
+
+//    @PutMapping(path="{groupId}")
+//    public void deleteStudent(@PathVariable("groupId") Long groupId,
+//                              @RequestParam(required = true) Long studentId){groupService.deleteStudentInGroup(groupId,studentId);
+//    }
 
 //    @PutMapping(path = "{groupId}")
 //    public void updateGroup(

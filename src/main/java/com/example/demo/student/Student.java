@@ -12,7 +12,7 @@ import java.time.Period;
 @Table
 public class Student {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+
 //    @SequenceGenerator(
 //            name = "student_sequence",
 //            sequenceName = "student_sequence",
@@ -26,8 +26,27 @@ public class Student {
     @ManyToOne
     @JoinColumn(name = "student_group_id")
     private Group group;
+    @Column(nullable = false)
+    private String firstName;
 
-    private String name;
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    @Column(nullable = false)
+    private String lastName;
     private String email;
     private LocalDate dob;
     @Transient   //it doesn't need to be a column in our database so age will be calculated for us
@@ -56,7 +75,6 @@ public class Student {
     public Student(Long id, Group group, String name, String email, LocalDate dob, Integer age) {
         this.id = id;
         this.group = group;
-        this.name = name;
         this.email = email;
         this.dob = dob;
         this.age = age;
@@ -78,13 +96,7 @@ public class Student {
         this.group = group;
     }
 
-    public String getName() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getEmail() {
         return email;
@@ -119,7 +131,8 @@ public class Student {
     @Override
     public String toString(){
         return "Student{"+"id="+id+
-                ", name='"+name+'\''+
+                ", firstname='"+firstName+'\''+
+                ", firstname='"+lastName+'\''+
                 ", email='"+email+'\''+
                 ", dob="+dob+
                 ", age=" +age+

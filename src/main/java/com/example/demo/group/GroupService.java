@@ -44,13 +44,13 @@ public class GroupService {
     }
 
 
-    public void addNewGroup(Group group) {
-//        Optional<Group> groupByDescription = groupRepository.findGroupByDesc (group. getDescription());
-//        if (groupByDescription.isPresent()) {
-//            throw new IllegalStateException("group belong to another group");
+//    public void addNewGroup(Group group) {
+////        Optional<Group> groupByDescription = groupRepository.findGroupByDesc (group. getDescription());
+////        if (groupByDescription.isPresent()) {
+////            throw new IllegalStateException("group belong to another group");
+////        }
+//        groupRepository.save(group) ;
 //        }
-        groupRepository.save(group) ;
-        }
     public void deleteGroup(Long groupId) {
         boolean exists=groupRepository.existsById(groupId);
         if(!exists) {
@@ -59,6 +59,16 @@ public class GroupService {
         }
         groupRepository.deleteById(groupId) ;
 
+    }
+    public Group addNewGroup(Group newgroup)
+    {
+        if (Objects.nonNull(newgroup))
+        {
+            Group Group = groupRepository.save(newgroup);
+
+            return Group;
+        }
+        throw new IllegalStateException("StudentGroupNotFound");
     }
 //    @Transactional
 //    public void deleteStudentInGroup(Long groupId,Long studentId) {

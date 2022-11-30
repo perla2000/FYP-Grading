@@ -1,44 +1,84 @@
-//package com.example.demo.Evaluator;
-//
-//
-//import com.example.demo.group.Group;
-//
-//import javax.persistence.*;
-//import java.util.ArrayList;
-//import java.util.List;
-//
-//@Entity
-//@Table
-//
-//public class Evaluator {
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-//    private long id;
-//
-//    @Column(nullable = false)
-//    private String Email;
-//
-//    @Column(nullable = false)
-//    private String firstName;
-//
-//    @Column(nullable = false)
-//    private String lastName;
-//
-//
-//    @Column(nullable = false)
-//    private Boolean advisor;
-//    @OneToMany  //hon mich lezim many to many ?
-//    private List<Group> studentGroup = new ArrayList<>();
-//
-//    public Evaluator() {
-//    }
-//
-//    public Evaluator(long id, String email, String firstName, String lastName, List<Group> group) {
-//        this.id = id;
-//        Email = email;
-//        this.firstName = firstName;
-//        this.lastName = lastName;
+package com.example.demo.evaluator;
+
+
+import com.example.demo.group.Group;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table
+
+public class Evaluator {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private long id;
+
+    @Column(nullable = false)
+    private String email;
+
+    @Column(nullable = false)
+    private String firstName;
+
+    @Column(nullable = false)
+    private String lastName;
+
+
+
+    @ManyToMany
+    @JoinColumn(name = "student_group_id")
+    private List<Group> studentGroup = new ArrayList<>();
+
+    public Evaluator() {
+    }
+
+    public Evaluator(long id, String email, String firstName, String lastName) {
+        this.id = id;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
 //        this.studentGroup = group;
-//    }
-//
-//}
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+    public List<Group> getStudentGroup() {
+        return studentGroup;
+    }
+
+    public void setStudentGroup(List<Group> studentGroup) {
+        this.studentGroup = studentGroup;
+    }
+
+
+}
