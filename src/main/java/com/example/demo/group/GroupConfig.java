@@ -12,8 +12,8 @@
 //    @Bean
 //    CommandLineRunner commandLineRunnerGroup(GroupRepository repository){
 //        return args -> {
-//            Group grp1=new Group("springboot");
-//            Group grp2=new Group("kafka"
+//            Group grp1=new Group();
+//            Group grp2=new Group(
 //            );
 //            repository.saveAll(
 //                    List.of(grp1,grp2)

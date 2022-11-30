@@ -9,8 +9,10 @@ import java.time.LocalDate;
 import java.time.Period;
 
 @Entity
+@Table
 public class Student {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
 //    @SequenceGenerator(
 //            name = "student_sequence",
 //            sequenceName = "student_sequence",
@@ -50,43 +52,70 @@ public class Student {
     public Student(){
 
     }
-    public Student(Long id,String name,String email,LocalDate dob){
-        this.id=id;
-        this.name=name;
-        this.email=email;
-        this.dob=dob;
 
+    public Student(Long id, Group group, String name, String email, LocalDate dob, Integer age) {
+        this.id = id;
+        this.group = group;
+        this.name = name;
+        this.email = email;
+        this.dob = dob;
+        this.age = age;
     }
-    public String getName(){
-        return name;
+
+    public Long getId() {
+        return id;
     }
-    public void setName(String name){
-        this.name=name;
+
+    public void setId(Long id) {
+        this.id = id;
     }
-    public String getEmail(){
-        return email;
-    }
-    public void setEmail(String email){
-        this.email=email;
-    }
-    public LocalDate getDob(){
-        return dob;
-    }
-    public void setDob(LocalDate dob){
-        this.dob=dob;
-    }
-    public Integer getAge(){
-        return Period.between(this.dob,LocalDate.now()).getYears();
-    }
-    public void setAge(Integer age){
-        this.age=age;
-    }
-    public Group getStudentGroup() {
+
+    public Group getGroup() {
         return group;
     }
-    public void setStudentGroup(Group studentGroup) {
-        this.group = studentGroup;
+
+    public void setGroup(Group group) {
+        this.group = group;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public LocalDate getDob() {
+        return dob;
+    }
+
+    public void setDob(LocalDate dob) {
+        this.dob = dob;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+    //    public Group getStudentGroup() {
+//        return group;
+//    }
+//    public void setStudentGroup(Group studentGroup) {
+//        this.group = studentGroup;
+//    }
+
     @Override
     public String toString(){
         return "Student{"+"id="+id+
