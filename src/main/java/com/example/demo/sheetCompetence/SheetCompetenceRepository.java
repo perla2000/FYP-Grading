@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 //long because id is long
 //Student type that we want to work upon
 @Repository
-public interface SheetCompetenceRepository extends JpaRepository<Group, Long > {
+public interface SheetCompetenceRepository extends JpaRepository<SheetCompetence, Long > {
 
 }

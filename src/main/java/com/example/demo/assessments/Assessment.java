@@ -1,32 +1,32 @@
-package com.example.demo.competence;
+package com.example.demo.assessments;
+import com.example.demo.grading.Grading;
 import com.example.demo.sheetCompetence.SheetCompetence;
 
 import javax.persistence.*;
 
-
 @Entity
 @Table
-public class Competence {
+public class Assessment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Long id;
     private String description;
-    private Integer value=0;
-    private Integer poids;
+    private Integer pourcentage;
     @ManyToOne
     @JoinColumn(name = "sheet_competences_id")
-    private SheetCompetence sheetCompetence;
+    private SheetCompetence sheetCompetences;
+    @OneToMany
+    private Grading grading;
 
-    public Competence() {
+    public Assessment(){
+
     }
 
-    public Competence(Long id, String description, Integer value, Integer poids) {
+    public Assessment(Long id, String description, Integer pourcentage) {
         this.id = id;
         this.description = description;
-        this.value = value;
-        this.poids = poids;
-
+        this.pourcentage = pourcentage;
     }
 
     public Long getId() {
@@ -41,23 +41,16 @@ public class Competence {
         return description;
     }
 
-    public Integer getPoids() {
-        return poids;
+    public Integer getPourcentage() {
+        return pourcentage;
     }
 
-    public void setPoids(Integer poids) {
-        this.poids = poids;
+    public void setPourcentage(Integer pourcentage) {
+        this.pourcentage = pourcentage;
     }
 
     public void setDescription(String description) {
         this.description = description;
     }
 
-    public Integer getValue() {
-        return value;
-    }
-
-    public void setValue(Integer value) {
-        this.value = value;
-    }
 }

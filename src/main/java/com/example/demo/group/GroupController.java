@@ -53,12 +53,12 @@ public class GroupController {
 //                              @RequestParam(required = true) Long studentId){groupService.deleteStudentInGroup(groupId,studentId);
 //    }
 
-    @PutMapping(path = "{groupId}")
-    public void updateGroup(
-            @PathVariable("groupId") Long groupId,
-            @RequestParam(required = false) String description,
-            @RequestParam(required = false) Long studentId) {
-        groupService.updateGroup(groupId, description, studentId);
-    }
+//    @PutMapping(path = "{groupId}")
+//    public void updateGroup(
+//            @PathVariable("groupId") Long groupId,
+//            @RequestParam(required = false) String description,
+//            @RequestParam(required = false) Long studentId) {
+//        groupService.updateGroup(groupId, description, studentId);
+//    }
 
 }
