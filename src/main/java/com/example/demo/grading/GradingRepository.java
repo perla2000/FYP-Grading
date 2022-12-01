@@ -1,16 +1,15 @@
-package com.example.demo.group;
+package com.example.demo.grading;
 
+import com.example.demo.group.Group;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import java.util.Optional;
 
 //long because id is long
 //Student type that we want to work upon
 @Repository
-public interface GroupRepository extends JpaRepository<Group, Long > {
+public interface GradingRepository extends JpaRepository<Group, Long > {
 
-    Optional<Group> findById(Long groupId);
+
 
 
 

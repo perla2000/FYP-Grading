@@ -49,6 +49,7 @@ public class StudentService {
         }
         studentRepository.deleteById(studentId) ;
 
+
     }
 
 
@@ -62,11 +63,12 @@ public class StudentService {
                 .orElseThrow(() -> new IllegalStateException(
                         "student with id " + studentId + " does not exist"));
 
-        if (firstName != null && firstName.length() > 0 && !Objects.equals(student.getFirstName(), firstName) &&
-                LastName != null && LastName.length() > 0 && !Objects.equals(student.getLastName(), LastName)) {
+        if (firstName != null && firstName.length() > 0 && !Objects.equals(student.getFirstName(), firstName))
+        {     student.setFirstName(firstName);}
+        if(LastName != null && LastName.length() > 0 && !Objects.equals(student.getLastName(), LastName)) {
 
-            student.setFirstName(firstName);
-            student.setLastName(LastName);
+
+            student.setLastName(LastName);}
 
             if (email != null &&
                     email.length() > 0 &&
@@ -81,4 +83,4 @@ public class StudentService {
             }
         }
     }
-}
+

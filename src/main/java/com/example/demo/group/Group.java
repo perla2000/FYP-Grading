@@ -1,11 +1,10 @@
 package com.example.demo.group;
 
-import com.example.demo.Grades.Grades;
+//import com.example.demo.Assessment.Assessment;
 import com.example.demo.evaluator.Evaluator;
 import com.example.demo.student.Student;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -19,11 +18,7 @@ public class Group {
     private List<Student> students=List.of() ;
     @OneToMany
     private List<Evaluator> jury=List.of();
-    @OneToMany
-    private List<Grades> grades =List.of();
-    @OneToOne
-    @JoinColumn(name = "advisor_id")
-    private Evaluator advisor;
+
 
     public List<Evaluator> getJury() {
         return jury;
@@ -33,13 +28,6 @@ public class Group {
         this.jury = jury;
     }
 
-    public Evaluator getAdvisor() {
-        return advisor;
-    }
-
-    public void setAdvisor(Evaluator advisor) {
-        this.advisor = advisor;
-    }
 
 
     public Group() {

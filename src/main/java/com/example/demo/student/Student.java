@@ -28,6 +28,12 @@ public class Student {
     private Group group;
     @Column(nullable = false)
     private String firstName;
+    @Column(nullable = false)
+    private String lastName;
+    private String email;
+    private LocalDate dob;
+    @Transient   //it doesn't need to be a column in our database so age will be calculated for us
+    private Integer age;
 
     public String getFirstName() {
         return firstName;
@@ -45,12 +51,7 @@ public class Student {
         this.lastName = lastName;
     }
 
-    @Column(nullable = false)
-    private String lastName;
-    private String email;
-    private LocalDate dob;
-    @Transient   //it doesn't need to be a column in our database so age will be calculated for us
-    private Integer age;
+
 
 //    public Group getGroup() {
 //        return group;

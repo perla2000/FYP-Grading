@@ -1,5 +1,6 @@
 package com.example.demo.group;
 
+import com.example.demo.jury.Jury;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,8 +28,19 @@ public class GroupController {
         return groupService.getGroup(groupId);
     }
     @PostMapping
-    public void registerNewGroup(@RequestBody Group group){
-        groupService.addNewGroup(group);
+    public void createGroup(@RequestParam(value = "evaluatorIdList") List<String> evaluatorIdList, @RequestParam(value = "studentGroupIdList") List<String> studentGroupIdList) {
+        if (evaluatorIdList.size() > 0) {
+
+            //   if (studentGroupIdList.size()>0) {
+
+            groupService.createGroup(evaluatorIdList, studentGroupIdList);
+//
+//
+//                return new ResponseEntity<>(group, HttpStatus.OK);
+            //}
+            //throw new IllegalStateException("student Group List Not Found");
+        }
+        //  throw new IllegalStateException("Evaluator List Not Found");
     }
     @DeleteMapping(path="{groupId}")
     public void deleteGroup(@PathVariable("groupId") Long groupId){
@@ -41,12 +53,12 @@ public class GroupController {
 //                              @RequestParam(required = true) Long studentId){groupService.deleteStudentInGroup(groupId,studentId);
 //    }
 
-//    @PutMapping(path = "{groupId}")
-//    public void updateGroup(
-//            @PathVariable("groupId") Long groupId,
-//            @RequestParam(required = false) String description,
-//            @RequestParam(required = false) Long studentId) {
-//        groupService.updateGroup(groupId, description, studentId);
-//    }
+    @PutMapping(path = "{groupId}")
+    public void updateGroup(
+            @PathVariable("groupId") Long groupId,
+            @RequestParam(required = false) String description,
+            @RequestParam(required = false) Long studentId) {
+        groupService.updateGroup(groupId, description, studentId);
+    }
 
 }

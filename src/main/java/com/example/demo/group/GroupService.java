@@ -2,15 +2,15 @@ package com.example.demo.group;
 
 
 
+import com.example.demo.evaluator.Evaluator;
+import com.example.demo.evaluator.EvaluatorRepository;
 import com.example.demo.student.Student;
 import com.example.demo.student.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service //@Component   //to use Autowired @Service or @Component are the same thing
 public class GroupService {
@@ -18,17 +18,20 @@ public class GroupService {
     private final GroupRepository groupRepository;
     @Autowired
     private final StudentRepository studentRepository;
+    @Autowired
+    private final EvaluatorRepository evaluatorRepository;
 //    @Autowired
 //    private final StudentRepository studentRepository;
 //    @Autowired
 //    private final StudentService studentService;
 
 
-    public GroupService(GroupRepository groupRepository, StudentRepository studentRepository){//, StudentRepository studentRepository, StudentService studentService) {
+    public GroupService(GroupRepository groupRepository, StudentRepository studentRepository, EvaluatorRepository evaluatorRepository){//, StudentRepository studentRepository, StudentService studentService) {
         this.groupRepository = groupRepository;
 //        this.studentRepository = studentRepository;
 //        this.studentService = studentService;
         this.studentRepository = studentRepository;
+        this.evaluatorRepository = evaluatorRepository;
     }
 
     public List<Group> getGroups() {
@@ -60,43 +63,41 @@ public class GroupService {
         groupRepository.deleteById(groupId) ;
 
     }
-    public Group addNewGroup(Group newgroup)
+    public void createGroup(List<String> evaluatorIdList, List<String> studentGroupIdList)
     {
-        if (Objects.nonNull(newgroup))
+        Group group = new Group();
+        List<Evaluator> evaluators = new ArrayList<>();
+        List<Student> studentGroups = new ArrayList<>();
+        Set<Long> evaluatorIdListLong = evaluatorIdList.stream().map(element->Long.valueOf(element)).collect(Collectors.toSet());
+        for (Long id : evaluatorIdListLong)
         {
-            Group Group = groupRepository.save(newgroup);
+            Optional<Evaluator> evaluator = evaluatorRepository.findById(id);
+            evaluators.add(evaluator.get());
 
-            return Group;
         }
-        throw new IllegalStateException("StudentGroupNotFound");
+        Set<Long> studentGroupIdListLong = studentGroupIdList.stream().map(element->Long.valueOf(element)).collect(Collectors.toSet());
+        for (Long id : studentGroupIdListLong){
+            Optional<Student> student =studentRepository.findById(id);
+            studentGroups.add(student.get());
+
+        }
+        group.setJury(evaluators);
+        group.setStudents(studentGroups);
+        group=groupRepository.save(group);
+        groupRepository.save(group);
+//
+//        return group;
     }
-//    @Transactional
-//    public void deleteStudentInGroup(Long groupId,Long studentId) {
-//
-//        Group group = groupRepository.findById(groupId)
-//                .orElseThrow(() -> new IllegalStateException(
-//                        "group with id " + groupId + " does not exist"));
-//        Student student = studentRepository.findById(studentId)
-//                .orElseThrow(() -> new IllegalStateException(
-//                        "student with id " + studentId + " does not exist"));
-//        List<Student> students=group.getStudents();
-//
-//        for (int i=0;i<students.size();++i){
-//            if (Objects.equals(students.get(i).getId(),studentId)){
-//                        students.remove(i);
-//                        group.setStudents(students);
-//                    }
-//                    else{
-//                         throw new IllegalStateException("student");
-//                    }
-//                }
-//
-//
-//    }
 
 
-//
-//    @Transactional
+
+
+    }
+
+
+
+
+//  @Transactional
 //    public void updateGroup(Long groupId, String description, Long studentId){
 //        Group group = groupRepository.findById(groupId)
 //                .orElseThrow(() -> new IllegalStateException(
@@ -117,23 +118,21 @@ public class GroupService {
 //                for (int i=0;i<students.size();++i){
 //                    if (Objects.equals(students.get(i), studentRepository.findById(studentId))){
 //                        students.remove(i);
-////                        students.add(i,studentToUpdate);
+//                        students.add(i,studentToUpdate);
 //
 //                    }
 //                    else{
-////                        group.setStudents(students.add(students.add(studentService.getStudent(studentId))));
+//                    group.setStudents(students.add(students.add(studentService.getStudent(studentId))));
 //                    }
 //                }
-////                Optional<Group> group = groupRepository
-////                        .findGroupByEmail(email);
-////                if (GroupOptional.isPresent()) {
-////                    throw new IllegalStateException("email taken");
-////                }
-////                group.setEmail(email);
-////
-////            }
+//                Optional<Group> group = groupRepository
+//                        .findGroupByEmail(email);
+//                if (GroupOptional.isPresent()) {
+//                    throw new IllegalStateException("email taken");
+//                }
+//                group.setEmail(email);
+//
+//            }
+//
+//    }
 
-    //}
-//}
-   // }
-}
