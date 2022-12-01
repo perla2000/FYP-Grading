@@ -1,5 +1,6 @@
 package com.example.demo.group;
 
+import com.example.demo.Grades.Grades;
 import com.example.demo.evaluator.Evaluator;
 import com.example.demo.student.Student;
 
@@ -18,7 +19,8 @@ public class Group {
     private List<Student> students=List.of() ;
     @OneToMany
     private List<Evaluator> jury=List.of();
-
+    @OneToMany
+    private List<Grades> grades =List.of();
     @OneToOne
     @JoinColumn(name = "advisor_id")
     private Evaluator advisor;
