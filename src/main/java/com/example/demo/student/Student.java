@@ -115,19 +115,6 @@ public class Student {
         this.dob = dob;
     }
 
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-    //    public Group getStudentGroup() {
-//        return group;
-//    }
-//    public void setStudentGroup(Group studentGroup) {
-//        this.group = studentGroup;
-//    }
 
     @Override
     public String toString(){

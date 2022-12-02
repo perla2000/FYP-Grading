@@ -34,10 +34,8 @@ public class CompetenceController {
     @PutMapping(path = "{competenceId}")
     public void updateCompetence(
             @PathVariable("competenceId") Long competenceId,
-            @RequestParam(required = false) String description,
-            @RequestParam(required = false) Integer value ,
-            @RequestParam(required = false) Integer poids) {
-        competenceService.updateCompetence(competenceId, description,value,poids);
+            @RequestParam(required = true) String description) {
+        competenceService.updateCompetence(competenceId, description);
     }
 
     }

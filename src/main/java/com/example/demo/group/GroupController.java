@@ -1,6 +1,6 @@
 package com.example.demo.group;
 
-import com.example.demo.jury.Jury;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

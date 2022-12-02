@@ -17,13 +17,14 @@ public class CompetenceService {
         this.competenceRepository = competenceRepository;
     }
 
-    public List<Competence> getCompetences(){
-            return competenceRepository.findAll();
+    public List<Competence> getCompetences() {
+        return competenceRepository.findAll();
     }
-    public Optional<Competence> getCompetence(Long competenceId){
+
+    public Optional<Competence> getCompetence(Long competenceId) {
         Optional<Competence> competence = competenceRepository.findById(competenceId);
         if (!competence.isPresent()) {
-            throw new IllegalStateException("Student with the Id \""+competenceId+"\" was not found");
+            throw new IllegalStateException("Student with the Id \"" + competenceId + "\" was not found");
 
         }
         return competence;
@@ -31,42 +32,34 @@ public class CompetenceService {
 
     public void addNewCompetence(Competence competence) {
 
-        competenceRepository.save(competence) ;
+        competenceRepository.save(competence);
 
 
     }
 
     public void deleteCompetence(Long studentId) {
-        boolean exists=competenceRepository.existsById(studentId);
-        if(!exists) {
+        boolean exists = competenceRepository.existsById(studentId);
+        if (!exists) {
             throw new IllegalStateException(
                     "student with id " + studentId + " does not exist");
         }
-        competenceRepository.deleteById(studentId) ;
+        competenceRepository.deleteById(studentId);
 
     }
 
 
-
     @Transactional
     public void updateCompetence(Long competenceId,
-                              String description,
-                              Integer value,
-                              Integer poids) {
+                                 String description) {
         Competence student = competenceRepository.findById(competenceId)
                 .orElseThrow(() -> new IllegalStateException(
                         "student with id " + competenceId + " does not exist"));
 
         if (description != null && description.length() > 0 && !Objects.equals(student.getDescription(), description)) {
 
-            student.setDescription(description);}
+            student.setDescription(description);
+        }
 
-        if (value != null && value > 0 && !Objects.equals(student.getValue(), value)) {
-                student.setValue(value);
-            }
-        if (poids != null && poids > 0 && !Objects.equals(student.getPoids(), poids)) {
-            student.setPoids(poids);
-        }
-        }
     }
+}
 
