@@ -1,7 +1,10 @@
 package com.example.demo.competence;
 
 
+import com.example.demo.assessment.CompetenceValue;
+
 import javax.persistence.*;
+import java.util.List;
 
 
 @Entity
@@ -20,6 +23,7 @@ public class Competence {
     @Column(name = "id", nullable = false)
     private Long id;
     private String description;
+
 
 
 

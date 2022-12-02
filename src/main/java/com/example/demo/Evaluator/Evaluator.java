@@ -27,8 +27,8 @@ public class Evaluator {
 
 
     @ManyToMany
-    @JoinColumn(name = "student_group_id")
-    private List<Group> studentGroup = new ArrayList<>();
+    @JoinColumn(name = "groupes_id")
+    private List<Group> group = new ArrayList<>();
 
     public Evaluator() {
     }
@@ -69,16 +69,7 @@ public class Evaluator {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-    public List<Group> getStudentGroup() {
-        return studentGroup;
-    }
 
-    public void setStudentGroup(List<Group> studentGroup) {
-        this.studentGroup = studentGroup;
-    }
 
 
 }

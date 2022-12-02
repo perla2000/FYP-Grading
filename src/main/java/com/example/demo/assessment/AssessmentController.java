@@ -1,5 +1,6 @@
 package com.example.demo.assessment;
 
+import com.example.demo.evaluator.Evaluator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,15 +25,13 @@ public class AssessmentController {
         return assessmentService.getSheet(sheetId);
     }
     @PostMapping
-    public void createSheet(@RequestParam(value = "competenceIdList") List<String> competenceIdList, @RequestParam(value = "valuesList") List<String> valuesList) {
-        if (competenceIdList.size() > 0) {
-            if (valuesList.size() > 0) {
-                assessmentService.createSheet(competenceIdList, valuesList);
+    public void createSheet(@RequestParam(value = "competenceIdList") List<String> competenceIdList,
+                            @RequestParam(value = "valuesList") List<String> valuesList,
+                            @RequestParam(value = "description") String description,
+                            @RequestParam(value = "evaluatorId") String evaluatorId,
+                            @RequestParam(value = "poids") String poids) {
 
-            }
-            throw new IllegalStateException("valuesList Not Found");
-        }
-        throw new IllegalStateException("competenceIdList Not Found");
+                assessmentService.createSheet(competenceIdList, valuesList,description,evaluatorId, Integer.valueOf(poids));
     }
     @DeleteMapping(path="{sheetId}")
     public void deleteSheet(@PathVariable("sheetId") Long sheetId){

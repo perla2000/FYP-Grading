@@ -23,10 +23,9 @@ public class CompetenceValue {
     @Column(name = "id", nullable = false)
     private Long id;
 
+
     @ManyToOne
-    @JoinColumn(name = "assessment_id")
-    Assessment assessment;
-    @OneToOne
+    @JoinColumn(name = "competence_id")
     Competence competence;
     Integer value=0;
 
@@ -39,12 +38,6 @@ public class CompetenceValue {
         this.value = value;
     }
 
-    public CompetenceValue(Long id, Assessment assessment, Competence competence, Integer value) {
-        this.id = id;
-        this.assessment = assessment;
-        this.competence = competence;
-        this.value = value;
-    }
 
     public Long getId() {
         return id;
@@ -54,13 +47,7 @@ public class CompetenceValue {
         this.id = id;
     }
 
-    public Assessment getAssessment() {
-        return assessment;
-    }
 
-    public void setAssessment(Assessment assessment) {
-        this.assessment = assessment;
-    }
 
     public Competence getCompetence() {
         return competence;

@@ -1,6 +1,8 @@
 package com.example.demo.assessment;
 
 
+import com.example.demo.evaluator.Evaluator;
+
 import javax.persistence.*;
 
 import java.util.List;
@@ -22,23 +24,39 @@ public class Assessment {
     @Column(name = "id", nullable = false)
     private Long id;
     private String description;
+    private Integer poids;
+
 
     @OneToMany
-    List<CompetenceValue> competences=List.of();
-
+    private List<CompetenceValue> competences=List.of();
+    @ManyToOne
+    @JoinColumn(name = "evaluator_id")
+    private Evaluator evaluator;
 
 
     private Integer totalGrade=0;
+
+
 
     public Assessment(){
 
     }
 
-    public Assessment(Long id, String description, List<CompetenceValue> competences, Integer totalGrade) {
+    public Assessment(Long id, String description, Integer poids, List<CompetenceValue> competences, Evaluator evaluator, Integer totalGrade) {
         this.id = id;
         this.description = description;
+        this.poids = poids;
         this.competences = competences;
+        this.evaluator = evaluator;
         this.totalGrade = totalGrade;
+    }
+
+    public Integer getPoids() {
+        return poids;
+    }
+
+    public void setPoids(Integer poids) {
+        this.poids = poids;
     }
 
     public Long getId() {
@@ -72,6 +90,14 @@ public class Assessment {
     public void setTotalGrade(Integer totalGrade) {
         this.totalGrade = totalGrade;
     }
+    public Evaluator getEvaluator() {
+        return evaluator;
+    }
+
+    public void setEvaluator(Evaluator evaluator) {
+        this.evaluator = evaluator;
+    }
+
 
 
 }

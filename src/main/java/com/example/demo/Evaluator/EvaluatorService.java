@@ -60,7 +60,7 @@ public class EvaluatorService {
                 LastName != null && LastName.length() > 0 && !Objects.equals(evaluator.getLastName(), LastName)) {
 
             evaluator.setFirstName(firstName);
-            evaluator.setLastName(LastName);
+//            evaluator.setLastName(LastName);
 
             if (email != null &&
                     email.length() > 0 &&

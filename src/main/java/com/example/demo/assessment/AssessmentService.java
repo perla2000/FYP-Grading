@@ -3,8 +3,7 @@ package com.example.demo.assessment;
 import com.example.demo.competence.Competence;
 import com.example.demo.competence.CompetenceRepository;
 import com.example.demo.evaluator.Evaluator;
-import com.example.demo.group.Group;
-import com.example.demo.student.Student;
+import com.example.demo.evaluator.EvaluatorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,12 +19,19 @@ public class AssessmentService {
     @Autowired
     private final AssessmentRepository assessmentRepository;
     @Autowired
+    private final CompetenceValueRepository competenceValueRepository;
+    @Autowired
     private final CompetenceRepository competenceRepository;
 
+    @Autowired
+    private final EvaluatorRepository evaluatorRepository;
 
-    public AssessmentService(AssessmentRepository assessmentRepository, CompetenceRepository competenceRepository) {
+    public AssessmentService(AssessmentRepository assessmentRepository, CompetenceValueRepository competenceValueRepository, CompetenceRepository competenceRepository, EvaluatorRepository evaluatorRepository) {
         this.assessmentRepository = assessmentRepository;
+        this.competenceValueRepository = competenceValueRepository;
+
         this.competenceRepository = competenceRepository;
+        this.evaluatorRepository = evaluatorRepository;
     }
 
     public List<Assessment> getSheets() {
@@ -49,26 +55,33 @@ public class AssessmentService {
         assessmentRepository.deleteById(sheetId) ;
 
     }
-    public void createSheet(List<String> competenceList, List<String> valueList)
+    public void createSheet(List<String> competenceList, List<String> valueList, String description, String evaluatorId,Integer poids)
     {
         Assessment sheet = new Assessment();
         List<CompetenceValue> competenceValues = new ArrayList<>();
         Set<Long> competenceListLong = competenceList.stream().map(element->Long.valueOf(element)).collect(Collectors.toSet());
-
+        int i=0;
+        Integer value=0;
+        Integer TotalGrade=0;
         for (Long id : competenceListLong)
         {
-//            Optional<Competence> competence = competenceRepository.findById(id);
-            CompetenceValue compValue=new CompetenceValue();
-
+            Optional<Competence> competence = competenceRepository.findById(id);
+            value= Integer.valueOf(valueList.get(i));
+            TotalGrade+=value;
+            CompetenceValue compValue=new CompetenceValue(competence.get(),value);
+            competenceValueRepository.save(compValue);
             competenceValues.add(compValue);
+            ++i;
 
         }
-
-        sheet.setTotalGrade(10);
-        //sheet.setCompetences(competenceValues);
+        Optional<Evaluator> evaluator=evaluatorRepository.findById(Long.valueOf(evaluatorId));
+        sheet.setTotalGrade(TotalGrade/(competenceValues.size()));
+        sheet.setCompetences(competenceValues);
+        sheet.setDescription(description);
+        sheet.setEvaluator(evaluator.get());
+        sheet.setPoids(poids);
         assessmentRepository.save(sheet);
-//
-//        return group;
+
     }
 
 
