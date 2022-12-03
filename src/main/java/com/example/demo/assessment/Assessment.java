@@ -33,9 +33,9 @@ public class Assessment {
     @ManyToOne
     @JoinColumn(name = "evaluator_id")
     private Evaluator evaluator;
-    @ManyToOne
-    @JoinColumn(name = "student_id")
-    private Student student;
+//    @ManyToOne
+//    @JoinColumn(name = "student_id")
+    private Long studentId;
 
     private Double totalGrade=0.0;
 
@@ -101,11 +101,11 @@ public class Assessment {
         this.evaluator = evaluator;
     }
 
-    public Student getStudent() {
-        return student;
+    public Long getStudent() {
+        return studentId;
     }
 
-    public void setStudent(Student student) {
-        this.student = student;
+    public void setStudent(Long studentId) {
+        this.studentId = studentId;
     }
 }

@@ -28,39 +28,28 @@ public class GradingService {  //(GradingRepository gradingRepository)
 
     public Double NoteFinale(Long studentId) {
         Optional<Grading> grading = gradingRepository.findGradingByStudentId(studentId);
-        Double finalGrade= Double.valueOf(0);
-        Double TotalPoids=0.0;
+        Double FinalGrade=0.0;
         if (!grading.isPresent()) {
             List<Assessment> assessments = assessmentRepository.findByStudentId(studentId);
             Grading grade =new Grading();
             grade.setAssessments(assessments);
             grade.setStudentId(studentId);
+            grade.setFinaleNote();
+            FinalGrade= grade.getFinaleNote();
 
-            for(int i=0;i<assessments.size();i++){
-                finalGrade+=(assessments.get(i)).getTotalGrade()*(assessments.get(i)).getPoids();
-                TotalPoids+=(assessments.get(i)).getPoids();
-            }
 
-            grade.setFinaleNote(finalGrade);
-            grade.setFinaleNote(finalGrade/TotalPoids);
-            grade.setPourcentage(TotalPoids+"%");
             gradingRepository.save(grade
                     //Grading.builder().studentId(studentId).FinaleNote(0).build()
             );
         } else {
 
             List<Assessment> assessments = assessmentRepository.findByStudentId(studentId);
-
-            for(int i=0;i<assessments.size();i++){
-                finalGrade+=((assessments.get(i)).getTotalGrade()*(assessments.get(i)).getPoids());
-                TotalPoids+=(assessments.get(i)).getPoids();
-
-            }
             grading.get().setAssessments(assessments);
-            grading.get().setFinaleNote(finalGrade/TotalPoids);
-            grading.get().setPourcentage(TotalPoids+"%");
+            grading.get().setFinaleNote();
+            FinalGrade= grading.get().getFinaleNote();
+
         }
 
-        return finalGrade/TotalPoids;
+        return FinalGrade;
     }
 }

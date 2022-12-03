@@ -46,8 +46,16 @@ public class Grading {
         this.studentId = studentId;
     }
 
-    public void setFinaleNote(Double finaleNote) {
-        FinaleNote = finaleNote;
+    public void setFinaleNote() {
+        Double finalGrade= Double.valueOf(0);
+        Double TotalPoids=0.0;
+        for(int i=0;i<assessments.size();i++){
+            finalGrade+=(assessments.get(i)).getTotalGrade()*(assessments.get(i)).getPoids();
+            TotalPoids+=(assessments.get(i)).getPoids();
+        }
+
+        this.setPourcentage(TotalPoids+"%");
+        FinaleNote =finalGrade/TotalPoids ;
     }
 
     public void setAssessments(List<Assessment> assessments) {

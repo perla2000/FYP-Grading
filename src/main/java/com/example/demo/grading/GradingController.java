@@ -16,7 +16,7 @@ public class GradingController {
         this.gradingService = gradingService;
     }
     @GetMapping(path="{studentId}")
-    public GradingCheckResponse CalculeNoteFinale(@PathVariable("studentId") Integer studentID){
+    public GradingCheckResponse CalculeNoteFinale(@PathVariable("studentId") Long studentID){
         Double FinaleNote = gradingService.NoteFinale(Long.valueOf(studentID));
         return new GradingCheckResponse(FinaleNote);
     }

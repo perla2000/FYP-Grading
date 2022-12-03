@@ -81,12 +81,12 @@ public class AssessmentService {
 
         }
         Optional<Evaluator> evaluator=evaluatorRepository.findById(Long.valueOf(evaluatorId));
-        Optional<Student> student=studentRepository.findById(Long.valueOf(studentId));
+
         sheet.setTotalGrade(TotalGrade/(competenceValues.size()));
         sheet.setCompetences(competenceValues);
         sheet.setDescription(description);
         sheet.setEvaluator(evaluator.get());
-        sheet.setStudent(student.get());
+        sheet.setStudent(Long.valueOf(studentId));
         sheet.setPoids(poids);
         assessmentRepository.save(sheet);
 
