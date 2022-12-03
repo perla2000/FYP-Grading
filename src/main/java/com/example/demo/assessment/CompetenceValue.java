@@ -27,12 +27,12 @@ public class CompetenceValue {
     @ManyToOne
     @JoinColumn(name = "competence_id")
     Competence competence;
-    Integer value=0;
+    Double value=0.0;
 
     public CompetenceValue() {
     }
 
-    public CompetenceValue(Competence competence, Integer value) {
+    public CompetenceValue(Competence competence, Double value) {
 
         this.competence = competence;
         this.value = value;
@@ -57,11 +57,11 @@ public class CompetenceValue {
         this.competence = competence;
     }
 
-    public Integer getValue() {
+    public Double getValue() {
         return value;
     }
 
-    public void setValue(Integer value) {
+    public void setValue(Double value) {
         this.value = value;
     }
 }

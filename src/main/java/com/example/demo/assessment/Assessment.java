@@ -2,6 +2,7 @@ package com.example.demo.assessment;
 
 
 import com.example.demo.evaluator.Evaluator;
+import com.example.demo.student.Student;
 
 import javax.persistence.*;
 
@@ -24,7 +25,7 @@ public class Assessment {
     @Column(name = "id", nullable = false)
     private Long id;
     private String description;
-    private Integer poids;
+    private Double poids;
 
 
     @OneToMany
@@ -32,9 +33,11 @@ public class Assessment {
     @ManyToOne
     @JoinColumn(name = "evaluator_id")
     private Evaluator evaluator;
+    @ManyToOne
+    @JoinColumn(name = "student_id")
+    private Student student;
 
-
-    private Integer totalGrade=0;
+    private Double totalGrade=0.0;
 
 
 
@@ -42,7 +45,7 @@ public class Assessment {
 
     }
 
-    public Assessment(Long id, String description, Integer poids, List<CompetenceValue> competences, Evaluator evaluator, Integer totalGrade) {
+    public Assessment(Long id, String description, Double poids, List<CompetenceValue> competences, Evaluator evaluator, Double totalGrade) {
         this.id = id;
         this.description = description;
         this.poids = poids;
@@ -51,11 +54,11 @@ public class Assessment {
         this.totalGrade = totalGrade;
     }
 
-    public Integer getPoids() {
+    public Double getPoids() {
         return poids;
     }
 
-    public void setPoids(Integer poids) {
+    public void setPoids(Double poids) {
         this.poids = poids;
     }
 
@@ -83,11 +86,11 @@ public class Assessment {
         this.competences = competences;
     }
 
-    public Integer getTotalGrade() {
+    public Double getTotalGrade() {
         return totalGrade;
     }
 
-    public void setTotalGrade(Integer totalGrade) {
+    public void setTotalGrade(Double totalGrade) {
         this.totalGrade = totalGrade;
     }
     public Evaluator getEvaluator() {
@@ -98,6 +101,11 @@ public class Assessment {
         this.evaluator = evaluator;
     }
 
+    public Student getStudent() {
+        return student;
+    }
 
-
+    public void setStudent(Student student) {
+        this.student = student;
+    }
 }

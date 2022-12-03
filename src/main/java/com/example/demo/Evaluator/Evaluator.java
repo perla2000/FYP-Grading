@@ -26,9 +26,7 @@ public class Evaluator {
 
 
 
-    @ManyToMany
-    @JoinColumn(name = "groupes_id")
-    private List<Group> group = new ArrayList<>();
+
 
     public Evaluator() {
     }

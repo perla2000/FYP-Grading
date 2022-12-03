@@ -4,6 +4,8 @@ import com.example.demo.competence.Competence;
 import com.example.demo.competence.CompetenceRepository;
 import com.example.demo.evaluator.Evaluator;
 import com.example.demo.evaluator.EvaluatorRepository;
+import com.example.demo.student.Student;
+import com.example.demo.student.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,13 +27,16 @@ public class AssessmentService {
 
     @Autowired
     private final EvaluatorRepository evaluatorRepository;
+    @Autowired
+    private final StudentRepository studentRepository;
 
-    public AssessmentService(AssessmentRepository assessmentRepository, CompetenceValueRepository competenceValueRepository, CompetenceRepository competenceRepository, EvaluatorRepository evaluatorRepository) {
+    public AssessmentService(AssessmentRepository assessmentRepository, CompetenceValueRepository competenceValueRepository, CompetenceRepository competenceRepository, EvaluatorRepository evaluatorRepository, StudentRepository studentRepository) {
         this.assessmentRepository = assessmentRepository;
         this.competenceValueRepository = competenceValueRepository;
 
         this.competenceRepository = competenceRepository;
         this.evaluatorRepository = evaluatorRepository;
+        this.studentRepository = studentRepository;
     }
 
     public List<Assessment> getSheets() {
@@ -55,18 +60,19 @@ public class AssessmentService {
         assessmentRepository.deleteById(sheetId) ;
 
     }
-    public void createSheet(List<String> competenceList, List<String> valueList, String description, String evaluatorId,Integer poids)
+    public void createSheet(List<String> competenceList, List<String> valueList,
+                            String description, String evaluatorId,Double poids,String studentId)
     {
         Assessment sheet = new Assessment();
         List<CompetenceValue> competenceValues = new ArrayList<>();
         Set<Long> competenceListLong = competenceList.stream().map(element->Long.valueOf(element)).collect(Collectors.toSet());
         int i=0;
-        Integer value=0;
-        Integer TotalGrade=0;
+        Double value=0.0;
+        Double TotalGrade=0.0;
         for (Long id : competenceListLong)
         {
             Optional<Competence> competence = competenceRepository.findById(id);
-            value= Integer.valueOf(valueList.get(i));
+            value= Double.valueOf(valueList.get(i));
             TotalGrade+=value;
             CompetenceValue compValue=new CompetenceValue(competence.get(),value);
             competenceValueRepository.save(compValue);
@@ -75,10 +81,12 @@ public class AssessmentService {
 
         }
         Optional<Evaluator> evaluator=evaluatorRepository.findById(Long.valueOf(evaluatorId));
+        Optional<Student> student=studentRepository.findById(Long.valueOf(studentId));
         sheet.setTotalGrade(TotalGrade/(competenceValues.size()));
         sheet.setCompetences(competenceValues);
         sheet.setDescription(description);
         sheet.setEvaluator(evaluator.get());
+        sheet.setStudent(student.get());
         sheet.setPoids(poids);
         assessmentRepository.save(sheet);
 

@@ -29,9 +29,11 @@ public class AssessmentController {
                             @RequestParam(value = "valuesList") List<String> valuesList,
                             @RequestParam(value = "description") String description,
                             @RequestParam(value = "evaluatorId") String evaluatorId,
+                            @RequestParam(value = "studentId") String studentId,
                             @RequestParam(value = "poids") String poids) {
 
-                assessmentService.createSheet(competenceIdList, valuesList,description,evaluatorId, Integer.valueOf(poids));
+                assessmentService.createSheet(competenceIdList, valuesList,description,
+                        evaluatorId, Double.valueOf(poids),studentId);
     }
     @DeleteMapping(path="{sheetId}")
     public void deleteSheet(@PathVariable("sheetId") Long sheetId){

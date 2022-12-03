@@ -1,6 +1,5 @@
 package com.example.demo.grading;
 
-
 import com.example.demo.assessment.Assessment;
 
 
@@ -8,51 +7,58 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Entity
-@Table
 public class Grading {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name="grading_id_generator",sequenceName="grading_id_sequence")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "grading_id_sequence")
     @Column(name = "id", nullable = false)
-    private Long id;
-
-    private Integer FinalGrade;
+    private Integer id;
+    private Long studentId;
+    private Double FinaleNote;
+    private String pourcentage;
     @OneToMany
     private List<Assessment> assessments=new ArrayList<>();
 
-    public Grading() {
+    public Double getFinaleNote() {
+        return FinaleNote;
     }
 
-    public Grading(Long id, List<Assessment> assessments) {
-        this.id = id;
-        this.assessments = assessments;
-    }
-
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
-
-    public Integer getFinalGrade() {
-        return FinalGrade;
-    }
-
-    public void setFinalGrade() {
-        Integer finalGrade=0;
-        for(int i=0;i<assessments.size();i++){
-            finalGrade+=(assessments.get(i)).getTotalGrade()*(assessments.get(i)).getPoids();
-        }
-        this.FinalGrade=finalGrade;
-    }
-
     public List<Assessment> getAssessments() {
         return assessments;
     }
 
+
+
+    public Long getStudentId() {
+        return studentId;
+    }
+
+        public void setStudentId(Long studentId) {
+        this.studentId = studentId;
+    }
+
+    public void setFinaleNote(Double finaleNote) {
+        FinaleNote = finaleNote;
+    }
+
     public void setAssessments(List<Assessment> assessments) {
         this.assessments = assessments;
+    }
+
+    public String getPourcentage() {
+        return pourcentage;
+    }
+
+    public void setPourcentage(String pourcentage) {
+        this.pourcentage = pourcentage;
     }
 }
